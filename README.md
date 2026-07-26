@@ -39,10 +39,10 @@ cd reproduction/generational/KDB && python -m experience_rate scalebb-apc-fit --
 
 ## 共著者・査読者の方へ
 
-本リポジトリは著者の作業リポジトリから一方向で同期される公開ミラーのため、
-`main` への直接コミットは次回同期で巻き戻される。変更は Issue または
-`main` 以外のブランチからの Pull Request でお願いしたい。詳細は
-[`CONTRIBUTING.md`](CONTRIBUTING.md) を参照。
+共著者は `main` へ直接コミット・push して構わない（push 前に `git pull` すること）。
+内容は著者が作業リポジトリへ取り込む際に確認する。
+方針の相談や修正案が固まっていない指摘は Issue でお願いしたい。
+詳細は [`CONTRIBUTING.md`](CONTRIBUTING.md) を参照。
 
 ## データ出典
 
