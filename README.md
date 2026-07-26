@@ -37,6 +37,13 @@ cd reproduction/generational/KDB && python -m experience_rate scalebb-apc-fit --
 
 各パッケージの詳細・期待される主要数値・元スクリプトからの改変点は各 README を参照。
 
+## 共著者・査読者の方へ
+
+本リポジトリは著者の作業リポジトリから一方向で同期される公開ミラーのため、
+`main` への直接コミットは次回同期で巻き戻される。変更は Issue または
+`main` 以外のブランチからの Pull Request でお願いしたい。詳細は
+[`CONTRIBUTING.md`](CONTRIBUTING.md) を参照。
+
 ## データ出典
 
 同梱する第三者提供データの出典・利用条件は **[`DATA_SOURCES.md`](DATA_SOURCES.md)** に集約する。主な出典は以下のとおり。
