@@ -19,6 +19,7 @@ International Congress of Actuaries (ICA) 提出論文の**公開用ドラフト
 | `sections/03_data_and_methodology.md` | §3 データと手法（本文） | ドラフト初稿（2026-07-21） |
 | `sections/04_backtest_design.md` | §4 検証設計（本文） | ドラフト初稿（2026-07-22） |
 | `sections/05_results_point_forecast.md` | §5 点予測精度の結果（本文） | ドラフト初稿（2026-07-22） |
+| `sections/figures/` | 本文掲載図（`reproduction/backtest/make_paper_figures.py` で生成・収集） | 図 3.1–3.3, 4.1, 5.1–5.5（2026-07-27） |
 | `reproduction/` | §3–§5 の**再現パッケージ群**（分担説明は `reproduction/README.md`） | — |
 | `reproduction/backtest/` | 点予測精度 + 方向性的中率（§3.1/3.2/3.4・§5・§6）。自己完結・単体実行可 | 動作確認済み（2026-07-22） |
 | `reproduction/generational/` | APC世代別 予定率テーブル生成（§3.3・§8A）。KDB CLI | 追跡検証済み（2026-07-15） |

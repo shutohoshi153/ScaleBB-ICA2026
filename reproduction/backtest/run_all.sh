@@ -28,11 +28,11 @@ fi
 echo "[run_all] using Python: $($PY --version 2>&1)  ($PY)"
 
 echo ""
-echo "=== [1/4] パネル構築 (5-15 表 → data/disease_panel_mortality.csv) ==="
+echo "=== [1/5] パネル構築 (5-15 表 → data/disease_panel_mortality.csv) ==="
 $PY build_panel.py
 
 echo ""
-echo "=== [2/4] ScaleBB fit/project + ベースライン (3 cutoff) ==="
+echo "=== [2/5] ScaleBB fit/project + ベースライン (3 cutoff) ==="
 # --- cutoff = 2014 (10年先予測 → output/) ---
 $PY run_backtest.py --train-cutoff 2014 --validation-end 2024
 $PY run_baselines.py --train-cutoff 2014 --validation-end 2024 --trend-window 15
@@ -44,12 +44,16 @@ $PY run_backtest.py --train-cutoff 2022 --validation-end 2024 --output-subdir cu
 $PY run_baselines.py --train-cutoff 2022 --validation-end 2024 --output-subdir cutoff_2022 --trend-window 15
 
 echo ""
-echo "=== [3/4] cutoff 横断比較 (→ output/cutoff_comparison/) ==="
+echo "=== [3/5] cutoff 横断比較 (→ output/cutoff_comparison/) ==="
 $PY compare_cutoffs.py
 
 echo ""
-echo "=== [4/4] 方向性的中率 §3.4 (→ output/directional/) ==="
+echo "=== [4/5] 方向性的中率 §3.4 (→ output/directional/) ==="
 $PY compute_directional_accuracy.py
 
 echo ""
-echo "[run_all] 完了。成果物は ./output/ を参照。"
+echo "=== [5/5] 論文掲載図の生成・収集 (→ ../../sections/figures/) ==="
+$PY make_paper_figures.py
+
+echo ""
+echo "[run_all] 完了。成果物は ./output/ (論文掲載図は ../../sections/figures/) を参照。"

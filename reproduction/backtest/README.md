@@ -37,6 +37,7 @@ backtest/
 ├── run_baselines.py                 [3] naive/mean_3pts/loglin ベースライン (§3.4.1)
 ├── compute_directional_accuracy.py  [4] 方向性的中率 DA (§3.4.2, 式 3.11–3.12)
 ├── compare_cutoffs.py               [5] 3 cutoff 横断比較 (§4)
+├── make_paper_figures.py            [6] 論文掲載図の生成・収集 (→ ../../sections/figures/)
 ├── vendor/
 │   └── experience_rate/_scalebb_core/
 │       ├── model.py                 Scale BB コア (§3.2, 式 3.1–3.6)。KDB から無改変で同梱
@@ -59,6 +60,7 @@ backtest/
 | 3 | `run_baselines.py`（同 3 cutoff） | `output[/cutoff_*]/tables/validation_summary_baseline.csv` ほか | §3.4.1 ベースライン、§3.4.2 MAPE/bias（式 3.9–3.10） |
 | 4 | `compare_cutoffs.py` | `output/cutoff_comparison/` | §4 検証設計（3 cutoff 横断） |
 | 5 | `compute_directional_accuracy.py` | `output/directional/` | §3.4.2 方向性的中率 DA（式 3.11–3.12）→ §6 |
+| 6 | `make_paper_figures.py` | `../../sections/figures/`（コミット対象） | 本文 §3・§4 の説明図の生成と、§5 が参照する成果図の収集 |
 
 ## 期待される主要数値（照合用グラウンドトゥルース）
 
