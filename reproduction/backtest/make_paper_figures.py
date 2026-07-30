@@ -265,6 +265,11 @@ COLLECT = {
     # §5.3
     "cutoff_comparison/figures/scalebb_cutoff_comparison.png":
         "fig_5_5_scalebb_cutoff_comparison.png",
+    # §6.2 / §6.3 (図 6.3 は make_calibration_recovery_figure.py が直接生成)
+    "directional/figures/scalebb_directional_per_cutoff.png":
+        "fig_6_1_scalebb_directional_per_cutoff.png",
+    "directional/figures/scalebb_vs_loglin_directional.png":
+        "fig_6_2_scalebb_vs_loglin_directional.png",
 }
 
 

@@ -16,13 +16,21 @@ International Congress of Actuaries (ICA) 提出論文の**公開用ドラフト
 
 | パス | 内容 | 状態 |
 |---|---|---|
+| `sections/01_introduction.md` | §1 序論（本文）。二つの転換（疾病率の構造変化・規制環境）→ 疾病リスク軸の空白 → 新規性 A/B → 三段の発見構造 | ドラフト初稿（2026-07-28） |
+| `sections/02_related_work_and_regulatory_requirements.md` | §2 先行研究と規制要件（本文） | ドラフト初稿（2026-07-28） |
 | `sections/03_data_and_methodology.md` | §3 データと手法（本文） | ドラフト初稿（2026-07-21） |
 | `sections/04_backtest_design.md` | §4 検証設計（本文） | ドラフト初稿（2026-07-22） |
 | `sections/05_results_point_forecast.md` | §5 点予測精度の結果（本文） | ドラフト初稿（2026-07-22） |
-| `sections/figures/` | 本文掲載図（`reproduction/backtest/make_paper_figures.py` で生成・収集） | 図 3.1–3.3, 4.1, 5.1–5.5（2026-07-27） |
+| `sections/06_results_directional_accuracy.md` | §6 方向性的中率の発見（本文）。方向反転疾病の再キャリブレーション実験（`reproduction/backtest/make_calibration_recovery_figure.py`）を含む | ドラフト初稿（2026-07-28） |
+| `sections/07_repositioning_scenario_generator.md` | §7 シナリオ生成器への再定位（本文）。実装対応表・ESG 対比・二層適用（新規性 B） | ドラフト初稿（2026-07-28） |
+| `sections/08_financial_impact_demo.md` | §8 財務インパクトのデモ（本文）。BEL 感応度デモ（簡易 Python 版・ESR 実装仕様準拠、`ScaleBB/Research/scripts/bel_demo/`）の結果を反映 | ドラフト初稿（2026-07-28） |
+| `sections/09_practical_implementation_guidelines.md` | §9 実務ガイドライン（本文）。疾病別キャリブレーション指針（表 9.1、§6.5 の二経路分担と整合）・導入負担 5 論拠＋段階的導入パス（FMS 実測値なし前提）・組み込み実績 | ドラフト初稿（2026-07-28） |
+| `sections/10_limitations_and_future_work.md` | §10 限界と今後の課題（本文）。代理性・長期検証可能性（蓄積待ちにしない枠組み）・キャリブレーション体系化・実務モデル再実行・確率論的拡張 | ドラフト初稿（2026-07-28） |
+| `sections/11_conclusion.md` | §11 結論（本文）。三段の結果構造・二層の貢献（新規性 A/B）の再掲 | ドラフト初稿（2026-07-28） |
+| `sections/figures/` | 本文掲載図（§3–§6 は `reproduction/backtest/make_paper_figures.py` ほか、図 8.1 は `ScaleBB/Research/scripts/bel_demo/aggregate_bel_results.py` で生成・収集） | 図 3.1–3.3, 4.1, 5.1–5.5, 6.1–6.3, 8.1（2026-07-28） |
 | `reproduction/` | §3–§5 の**再現パッケージ群**（分担説明は `reproduction/README.md`） | — |
 | `reproduction/backtest/` | 点予測精度 + 方向性的中率（§3.1/3.2/3.4・§5・§6）。自己完結・単体実行可 | 動作確認済み（2026-07-22） |
-| `reproduction/generational/` | APC世代別 予定率テーブル生成（§3.3・§8A）。KDB CLI | 追跡検証済み（2026-07-15） |
+| `reproduction/generational/` | APC世代別 予定率テーブル生成（§3.3 の APC 拡張の前向き実行系。詳細は `reproduction/generational/README.md`）。KDB CLI | 追跡検証済み（2026-07-15） |
 
 ## 再現検証（査読者・共著者向け）
 

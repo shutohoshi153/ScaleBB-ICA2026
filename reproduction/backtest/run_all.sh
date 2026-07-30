@@ -48,11 +48,15 @@ echo "=== [3/5] cutoff 横断比較 (→ output/cutoff_comparison/) ==="
 $PY compare_cutoffs.py
 
 echo ""
-echo "=== [4/5] 方向性的中率 §3.4 (→ output/directional/) ==="
+echo "=== [4/6] 方向性的中率 §3.4 (→ output/directional/) ==="
 $PY compute_directional_accuracy.py
 
 echo ""
-echo "=== [5/5] 論文掲載図の生成・収集 (→ ../../sections/figures/) ==="
+echo "=== [5/6] キャリブレーション回復図 §6.5 (→ output/directional/ + 図 6.3) ==="
+$PY make_calibration_recovery_figure.py
+
+echo ""
+echo "=== [6/6] 論文掲載図の生成・収集 (→ ../../sections/figures/) ==="
 $PY make_paper_figures.py
 
 echo ""

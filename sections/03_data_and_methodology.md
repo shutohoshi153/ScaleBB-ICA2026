@@ -172,7 +172,7 @@ Scale BB の出力は、平滑化行列 $\hat{Z}$ や改善率 $i(x, y)$ のよ�
 | $a_0, a_1$ | 年齢テーパ開始・終了 | 90, 120 |
 | $y_{\text{obs}}$ | 観測終端 (`last_observed_year`) | cutoff（§4） |
 
-> 設定範囲に関する注記: 上表は本章のバックテスト（点予測・方向性の検証）で用いる設定であり、再現パッケージ `reproduction/backtest/` に対応する。前向きの世代別予定率テーブル生成パイプライン（`reproduction/generational/`、§8A）では、若年層（20 歳始）向けの率の年次変動を抑えるため暦年方向を強めた `lam_col=60`、年齢範囲 `age_min=20` の age20 プリセットを用いる。$\lambda_{\text{year}}$ 以外の中核パラメータ（$L=0.01$, $P=2035$, $\lambda_{\text{age}}=40$, $d=2$）は両者で共通である。
+> 設定範囲に関する注記: 上表は本章のバックテスト（点予測・方向性の検証）で用いる設定であり、再現パッケージ `reproduction/backtest/` に対応する。前向きの世代別予定率テーブル生成パイプライン（`reproduction/generational/`、詳細は `reproduction/generational/README.md`）では、若年層（20 歳始）向けの率の年次変動を抑えるため暦年方向を強めた `lam_col=60`、年齢範囲 `age_min=20` の age20 プリセットを用いる。$\lambda_{\text{year}}$ 以外の中核パラメータ（$L=0.01$, $P=2035$, $\lambda_{\text{age}}=40$, $d=2$）は両者で共通である。
 
 ---
 
@@ -228,7 +228,7 @@ Scale BB の有用性を相対評価するため、改善率の概念を陽に�
 |---|---|---|
 | `naive_last` | $\hat{m}(x, y) = m(x, y_c)$ | 「最新値が続く」。構造上 $\hat{m}$ は $y$ に依存しない |
 | `mean_3pts` | $\hat{m}(x, y) = \frac{1}{3}\sum_{k=0}^{2} m(x, y_c^{(k)})$（直近 3 観測点の平均） | ノイズ除去・水準平均 |
-| `loglin_trend` | 直近 15 年で $\log m(x, y) = a_x + s_x\, y$ を年齢別 OLS 推定し、$\hat{m}(x, y) = \exp(a_x + s_x\, y)$ で外挿 | 古典的アクチュアリー手法。原論文 §3.1 の BFLL と同型で、年率改善 $= 1 - e^{s_x}$ を暗黙に持つ |
+| `loglin_trend` | 直近 15 年で $\log m(x, y) = a_x + s_x\, y$ を年齢別 OLS（最小二乗法）推定し、$\hat{m}(x, y) = \exp(a_x + s_x\, y)$ で外挿 | 古典的アクチュアリー手法。原論文 §3.1 の BFLL と同型で、年率改善 $= 1 - e^{s_x}$ を暗黙に持つ |
 
 `naive_last` は $\hat{m}$ が cutoff 年の値の持ち越しであるため、後述の予測変化量が常に $0$ となる（方向情報を持たない）。`loglin_trend` は年齢別の傾き $s_x$ を通じて陽な方向情報を持つ唯一のベースラインであり、Scale BB の最も有意義な対抗馬となる（§6）。
 
@@ -248,9 +248,9 @@ $$
 \tag{3.10}
 $$
 
-bias が正であれば予測が過大、負であれば過小を表す。補助的に RMSE と平均相対 bias（$\frac{100}{N}\sum (\hat{m} - m_{\text{act}})/m_{\text{act}}$）も併用する。
+bias が正であれば予測が過大、負であれば過小を表す。補助的に RMSE（二乗平均平方根誤差、Root Mean Square Error）と平均相対 bias（$\frac{100}{N}\sum (\hat{m} - m_{\text{act}})/m_{\text{act}}$）も併用する。
 
-方向性的中率 (directional accuracy)。 本研究の中心的発見（§6）を支える指標で、予測が「観測終端 $y_c$ 比で率が上下どちらに動くか」をどれだけ正しく当てているかを測る。セルごとに実績変化量と予測変化量を
+方向性的中率 (directional accuracy; 以下 DA)。 本研究の中心的発見（§6）を支える指標で、予測が「観測終端 $y_c$ 比で率が上下どちらに動くか」をどれだけ正しく当てているかを測る。セルごとに実績変化量と予測変化量を
 
 $$
 \Delta_{\text{act}}(x, y) = m_{\text{act}}(x, y) - m(x, y_c), \qquad

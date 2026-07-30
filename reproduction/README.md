@@ -7,7 +7,7 @@
 reproduction/
 ├── README.md        ← 本ファイル（分担と整合性の説明）
 ├── backtest/        点予測精度 + 方向性的中率の検証   （§3.1 / §3.2 / §3.4 / §5 / §6）
-└── generational/    APC世代別 予定率テーブル生成       （§3.3 / §8A）
+└── generational/    APC世代別 予定率テーブル生成       （§3.3。詳細は generational/README.md）
 ```
 
 ## 2 パッケージの分担
