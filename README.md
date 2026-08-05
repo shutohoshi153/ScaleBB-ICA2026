@@ -1,3 +1,5 @@
+**日本語** | [English](README.en.md)
+
 # Paper_ICA2026 — 公開用論文マニュスクリプト
 
 International Congress of Actuaries (ICA) 提出論文の**公開用ドラフト置き場**。
@@ -11,6 +13,14 @@ International Congress of Actuaries (ICA) 提出論文の**公開用ドラフト
 - 章立ては `ScaleBB/Research/docs/Paper_Outline_20260710.md`（2026-07-15 共著者合意版）に準拠。
 - 数式は LaTeX 記法（`$...$` / `$$...$$`）で記述する。
 - 執筆言語は日本語ドラフト（最終稿は英訳予定。アウトライン参照）。
+
+## 言語 / Languages
+
+本リポジトリは日英二言語で運用する。英語圏の共著者・査読者は各英語版を参照のこと。
+
+- **ドキュメント**: 日本語原本 `<name>.md` の隣に英語版 `<name>.en.md` を置く（例: `README.md` ⇔ `README.en.md`）。各ファイル先頭の言語リンクで相互に行き来できる。両者に差異がある場合は**日本語版を正**とする。日本語ファイル名のドキュメントは英語版で英語ファイル名を用いる（`Scale_BB機能.md` ⇔ `Scale_BB_features.en.md`、`設計書.md` ⇔ `design_document.en.md`）。
+- **本文（原稿）**: 日本語ドラフトは `sections/`、英語ドラフトは `sections_en_b1/`（同一ファイル名で対応）。
+- **データ・コード**: e-Stat 由来のカテゴリ名・列名など、データ値として機能する日本語文字列は翻訳せずそのまま保持する（英語版ドキュメントでは括弧書きで英語の注釈を付す）。
 
 ## 構成
 

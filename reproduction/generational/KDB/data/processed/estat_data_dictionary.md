@@ -1,3 +1,5 @@
+**日本語** | [English](estat_data_dictionary.en.md)
+
 # e-Stat API 取得データ辞書
 
 本研究「Scale BB 思想の疾病発生率への応用」で使用する、e-Stat API から取得した全データセットの構造・コード体系・使い方を記述する。

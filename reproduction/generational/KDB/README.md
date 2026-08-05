@@ -1,4 +1,6 @@
-﻿# 予定発生率テーブル生成環境 (SQLite + Python)
+﻿**日本語** | [English](README.en.md)
+
+# 予定発生率テーブル生成環境 (SQLite + Python)
 
 人口データ由来の発生率 (Incidence Rate) パネルと **Scale BB / APC 拡張モデル** による
 予定発生率テーブル生成を担う、**SQLite + Python 製の再現実行環境**。

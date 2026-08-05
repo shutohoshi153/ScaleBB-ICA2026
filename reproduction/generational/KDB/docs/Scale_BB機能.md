@@ -1,4 +1,6 @@
-﻿# Scale BB 拡張モデル機能ガイド (KDB 統合版)
+﻿**日本語** | [English](Scale_BB_features.en.md)
+
+# Scale BB 拡張モデル機能ガイド (KDB 統合版)
 
 本ドキュメントは、KDB に統合した **Scale BB 拡張モデル**
 (2D Whittaker-Henderson 平滑化 + 長期率ブレンドによる将来投影)

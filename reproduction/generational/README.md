@@ -1,3 +1,5 @@
+**日本語** | [English](README.en.md)
+
 # generational — 予定発生率表 生成スクリプトと追跡検証環境
 
 > 本パッケージは `Paper_ICA2026/reproduction/` の一部です（旧 `CoAuthor_Share_20260711/05_reproduction/`

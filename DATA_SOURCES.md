@@ -1,3 +1,5 @@
+**日本語** | [English](DATA_SOURCES.en.md)
+
 # データ出典 / Data Sources
 
 本リポジトリに同梱する第三者提供データの出典と利用条件をまとめる。
