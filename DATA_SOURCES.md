@@ -86,6 +86,32 @@ Center is not responsible for the processed figures.
 
 ---
 
+## 5. イールド・カーブ作成ツール（金融庁）
+
+**出典表記:**
+
+> 金融庁「経済価値ベースのソルベンシー規制におけるイールド・カーブ作成ツール」（2026 年 3 月末基準日版）
+
+**English citation:**
+
+> Financial Services Agency of Japan, *Yield curve creation tool for the economic
+> value-based solvency regulation*, version for the 31 March 2026 valuation date
+
+| 項目 | 内容 |
+| --- | --- |
+| 該当ファイル | `ScaleBB/Research/data/external/fsa_esr/esr_yield_curve_tool_20260331.xlsx`（本パッケージには同梱しない） |
+| 提供元 | https://www.fsa.go.jp/policy/economic_value-based_solvency/20260323/20260323.html（ESR 総合ページからリンクされる常設ページ。基準日ごとにファイルが差し替わる） |
+| 版の特定 | ブック内の基準日表記は「2026年3月末」。ファイルの更新日時は 2026-04-06。ローカル取得日は 2026-07-28 |
+| 用途 | §8 の BEL 感応度デモの割引率カーブ（パラメータシートの JPY 行から LOT・収束年限・UFR・ゼロクーポン金利を読み取り、Smith-Wilson 補外を再現） |
+| 利用条件 | 金融庁ウェブサイトの利用規約（https://www.fsa.go.jp/rules/index.html ）に従う。政府標準利用規約準拠で、出典明示のうえ複製・翻案・商用利用が可能 |
+
+**派生物について:** `ScaleBB/Research/scripts/bel_demo/build_esr_discount_curve.py` は、上記ツールの
+パラメータを読み取った上で Smith-Wilson 法のロジックを**独自に再現**して
+`esr_jpy_spot_curve_20260331.csv` を生成する。ツール自体の SW シートと実装が同一であることまでは
+検証していない。この再現結果について金融庁は責任を負わない。
+
+---
+
 ## 免責
 
 本リポジトリの派生データ・解析結果はいずれも本研究の著者によるものであり、

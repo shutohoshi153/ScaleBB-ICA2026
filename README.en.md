@@ -39,10 +39,67 @@ This repository is maintained bilingually in Japanese and English.
 | `sections/09_practical_implementation_guidelines.md` | §9 Practical implementation guidelines (main text). Disease-specific calibration guidance (Table 9.1, consistent with the two-path division of §6.5), five arguments on adoption burden plus a phased adoption path (assuming no observed FMS values), and adoption track record | First draft (2026-07-28) |
 | `sections/10_limitations_and_future_work.md` | §10 Limitations and future work (main text). Proxy validity, long-term verifiability (a framework that does not wait for data accumulation), systematization of calibration, re-running production models, and stochastic extensions | First draft (2026-07-28) |
 | `sections/11_conclusion.md` | §11 Conclusion (main text). Restates the three-stage structure of results and the two-layer contribution (novelties A/B) | First draft (2026-07-28) |
+| `sections_en_b1/00_front_matter.md` | Title, authors, Abstract, Keywords | **New (2026-08-05). Author name and affiliation finalized; the Abstract is a draft** |
+| `sections_en_b1/12_acknowledgment.md` | Acknowledgment (disclosure of generative-AI use, data acknowledgments, disclaimer; no peer-review acknowledgment since no peer review is planned) | **New (2026-08-05). Template — needs rewriting** |
+| `sections_en_b1/13_references.md` | References | **New (2026-08-05). Source verification complete** |
 | `sections/figures/` | Figures included in the main text (§3–§6 generated and collected by `reproduction/backtest/make_paper_figures.py` and others; Figure 8.1 by `ScaleBB/Research/scripts/bel_demo/aggregate_bel_results.py`) | Figures 3.1–3.3, 4.1, 5.1–5.5, 6.1–6.3, 8.1 (2026-07-28) |
 | `reproduction/` | **Reproduction packages** for §3–§5 (division of roles explained in `reproduction/README.md`) | — |
 | `reproduction/backtest/` | Point-forecast accuracy + directional accuracy (§3.1/3.2/3.4, §5, §6). Self-contained; runnable standalone | Verified working (2026-07-22) |
 | `reproduction/generational/` | Generation of APC generational assumed-rate tables (the forward-running pipeline for the APC extension of §3.3; details in `reproduction/generational/README.md`). KDB CLI | Trace-verified (2026-07-15) |
+
+## Compliance with the official ICA 2026 guidance (as of 2026-08-05)
+
+The English manuscript (`sections_en_b1/`) was checked against the *Guidance for Preparing a Paper* / *Guidelines for Peer Review*, with the following addressed.
+
+**Addressed**
+
+- Added a References section (an explicit requirement of the guidance)
+- Added an Acknowledgment section with a disclosure slot for generative-AI use (an explicit requirement of the guidance)
+- Added front matter with the Abstract, author information, and Keywords
+- Resolved the internal contradiction caused by conflated definitions of "cell" in §5 (the validation cells of §3.4.2/§4.3 and the disease×sex cells of §5/§6 are now defined separately)
+- Fixed the horizon/cutoff conflation in §5.4
+- Added a paragraph on prior work in cause-specific mortality forecasting to §2.2 and narrowed the claim of novelty A to "first within the family of improvement-rate scales" (§1.2 and §11 aligned accordingly)
+- Unified the inconsistent notation of the ESR effective date (§1.1 / §2.3 / §8.1)
+- Fixed the broken cross-reference in §4.5 ("see §3") and added an Availability statement
+- Removed duplicated figure captions (alt text emptied; hand-written captions are now the single source)
+- Numbered all tables sequentially (Table 2.1 / 3.1–3.6 / 4.1–4.2 / 5.1–5.3 / 6.1–6.4; former Table 6.1 renamed to 6.4, with the reference in §9.1 corrected)
+- Added a hyperparameter table for the §3.3 APC extension, stated explicitly that it is out of validation scope (Scope note), and added a note to the same effect in §7.2
+
+### Additional items addressed in the second check on 2026-08-05
+
+- Revised the citation of the FSA Pillar 1 Notice to include the promulgation date (2025-07-23) and the **partial amendment of 23 March 2026 (effective 2026-03-31)** (§7.2, §8.1, References)
+- Specified the version of the yield curve creation tool and added a References entry (on 2026-08-05 the actual file was inspected with openpyxl to pin down the valuation date and observed maturities; an entry was also added to `DATA_SOURCES.md`)
+- Corrected "10-year-ahead level" in §6.1 to mean the 10-year aggregate (the same kind of horizon conflation as in §5.4)
+- Aligned the cell notation in §11 with the definition in §5.2
+- Condensed §10.2 (removed the near-verbatim repetition of the end of §6.5)
+- Corrected the GBD entry in References to point to §2.2 instead of §10
+- Detected the rounding inconsistency in §8.5 (a 1-yen discrepancy in the total); verified against the computation output the same day and confirmed it is an artifact of rounding. A note was added right after the table (no value changes needed)
+
+**Outstanding (requires action by the author)**
+
+Grep for the `<!-- TODO(著者確認) -->` (author-check TODO) comments in each file and clear them. Main items:
+
+0. ~~**Handling of the FSA Pillar 1 Notice amendment**~~ → **Resolved (2026-08-05).** The primary source (the old/new comparison table of FSA Public Notice No. 6 of 2026) was checked, establishing that **the amendment consists only of typographical, punctuation, and heading-level corrections**, and every provision cited in this paper is untouched. No changes to the §8 figures are needed. The citation wording has been fixed in §7.2, §8.1, and References (the evidence is recorded in the HTML comment in §7.2)
+1. ~~**Source verification of the *[TO BE VERIFIED]* items in References**~~ → **Resolved (2026-08-05).** All 9 items were verified against their sources and the markers cleared. Six needed only bibliographic confirmation (Alai et al. 2015, Arnold & Sherris 2013, CMI_2025 / WP211, the yield curve creation tool, the e-Stat terms of use, GBD) and **3 had their citations corrected**: (a) the compositional-data-analysis citation was replaced from Bergeron-Boucher et al. (2017) with Kjærgaard et al. (2019) (the former is mainly about coherent multi-population forecasting and does not directly treat the cause-specific application), (b) §1.1 now notes that the AAA practice note is in the context of pension obligation measurement, (c) for OECD (2023) the specific claim could not be located in the source, so §1.1 was rewritten as a general statement without attribution and the entry removed (the bibliographic details are preserved in a comment at the top of `13_references.md` for potential reinstatement). **Nothing remains unverified.** The yield curve creation tool file was inspected with openpyxl, confirming the valuation date "end of March 2026" and the 13 observed maturities (1–10/15/20/30 years) match the description in §8.1. Since the hosting page shares a common URL across valuation dates, the References entry is dated by "valuation-date version" rather than publication date. The tool was also added as item 5 of `DATA_SOURCES.md`, where it had been missing
+2. **Finalize the Abstract.** Authorship is now settled as a **single-author paper by Shuto Hoshi / Milliman** (2026-08-05). Accordingly, all plural references ("the authors") in the main text and the Acknowledgment have been unified to the singular (§1.2, §2.1, §9.3, §11, §12). What remains: the Abstract is still the draft derived from §1 and §11, and has not been checked against the guidance's word-count and formatting requirements. Note that changing the title, abstract, or presenter after registration requires notifying the secretariat (the guidance deadline was 7/31)
+
+   **⚑ Fixes needed on the public repository side**: the citation examples in `CITATION.cff` and the README read "Hoshi, S. et al." — drop the `et al.`. Also, the README's citation example calls this congress the "32nd", but ICA 2026 Tokyo is correctly the "**33rd**" (per the header of the official guidance). If co-authors are added, handle everything together: adding them to the front matter, designating the corresponding author, revisiting the singular wording in the main text, and updating `CITATION.cff`
+3. **Finalize the generative-AI disclosure statement to match actual usage** (tool names and scope)
+4. ~~**Decision on whether to publish the reproduction package**~~ → **Resolved (2026-08-05).** The public repository https://github.com/shutohoshi153/scale-bb-d is ready (public; MIT, figures CC BY 4.0; `DATA_SOURCES.md` and `CITATION.cff` bundled). The Availability statement in §4.5 now gives the URL and license split, and a References entry was added. All `reproduction/...` and `_scalebb_core/...` references throughout the paper resolve against this repository
+5. **Treatment of the §3.3 APC extension** (move it to an appendix, or add APC-inclusive DA results to §6)
+6. ~~**The §8.5 rounding inconsistency**~~ → **Resolved (2026-08-05).** Checking the computation output (`ScaleBB/Research/output/bel_demo/esr_life_risk_summary.csv`) gave current estimate 327,987.72, MOCE 32,285.59, insurance liability 360,273.31 — **every value in the table was correctly rounded**. The apparent 1-yen difference arises because the first two both round upward, so the values were left unchanged and a note was added right after the table (stating the unrounded values). The same note records that the diversification effect −34% is a rounding of −33.7%
+7. ~~**Remaining redundancy reduction**~~ → **Resolved (2026-08-05).** (a) §7.5 (the preview of adoption burden) overlapped with §9.2, so the whole subsection was deleted and its gist absorbed as two sentences at the end of §7.4; former §7.6 (two-layer application) was promoted to §7.5, and the roadmap at the top of §7 and the cross-reference in §10.1 were fixed. (b) Re-explanations of the narrative structure were consolidated into their proper homes: §1.3, §5.4, §6.4, and §11. The bridge passage at the end of §4 no longer pre-announces results and is down to one sentence; the bridges at the end of §5 and §6 each lost their overlap with the preceding subsection and are one sentence; the openings of §6 and §7 were compressed by removing repetition of the previous chapter's results (the italic end-of-chapter bridge format itself is retained)
+8. **Internal clearance** (the in-house system adoption track record in §9.3; the ESR calculations in §8)
+
+Note that the policy is not to conduct peer review (confirmed 2026-08-05). The Peer Review Authorisation Form therefore need not be submitted, but under the guidance's principle that "the responsibility for demonstrating the value of the paper rests with the author," the self-verification items 0, 1, and 6 above carry correspondingly more weight. As all three are resolved, the top priority before the Final deadline (9/30) has shifted to **item 8 (internal clearance)**. Since the public repository now exists, note that the scope of clearance also covers the code and data being published.
+
+**Known file corruption → resolved (2026-08-05)**
+
+The invalid UTF-8 byte sequences in `sections_en_b1/09_practical_implementation_guidelines.md` were removed by rewriting the whole file in clean UTF-8 (the comment block containing the corrupted duplicate paragraphs of the old version was also deleted wholesale, as instructed). All 14 files under `sections_en_b1/` were then inspected by full-file reads; no other mojibake was found. Note that partial reads via MCP (head/tail ranges) can split multibyte characters at chunk boundaries and display "��" — this is a display artifact, not corruption of the actual data. Before rebuilding the PDF, running a strict decode check on the WSL side (`bytes.decode('utf-8', errors='strict')`) once is recommended as a precaution.
+
+**PDF build-side issue (the source is fine)**
+
+In `Paper_ICA2026_draft_EN.pdf`, the §6.4 heading and opening sentence and the caption of Figure 6.2 were missing, although both exist in the Markdown source. This looks like a pagination accident during conversion — be sure to inspect visually after each rebuild.
 
 ## Reproduction verification (for reviewers and co-authors)
 

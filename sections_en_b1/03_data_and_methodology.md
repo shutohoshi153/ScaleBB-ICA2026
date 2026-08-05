@@ -12,6 +12,8 @@ About notation: the math symbols follow the earlier study, the SOA (2012) *Morta
 
 The input for the validation is the cause-specific crude mortality rate $m(x, y)$ per 100,000 total population. We took it from Table 5-15 of the Vital Statistics of Japan (MHLW), which gives annual trends by cause of death (cause of death × sex × 5-year age group × year). Here $x$ is the age group and $y$ is the calendar year.
 
+Table 3.1: Specification of the input panel
+
 | Item | Content |
 |---|---|
 | Source | Vital Statistics Table 5-15 (annual-trend cause-of-death classification × sex × 5-year age group × year) |
@@ -21,15 +23,19 @@ The input for the validation is the cause-specific crude mortality rate $m(x, y)
 | Sex | 3 groups: total / male / female |
 | Age | 21 groups from 0–4 to 100+ (the validation uses the 14 groups for ages 20–89) |
 
-Table 5-15 is a cause-of-death time series in which 5-year age groups × year are available over a long period. The observation years are not evenly spaced (5-year steps in the first half, yearly in the second half). The annualization logic in §3.2 handles this point (equation (3.3)). Under its terms of use, the Vital Statistics data can be used for commercial purposes.
+Table 5-15 is a cause-of-death time series in which 5-year age groups × year are available over a long period. The observation years are not evenly spaced (5-year steps in the first half, yearly in the second half). The annualization logic in §3.2 handles this point (equation (3.3)). Under its terms of use, the Vital Statistics data can be used for commercial purposes, provided the source is stated; where the content is edited or processed, that fact and the party responsible must also be stated.[^estat]
 
-![Overview of the input panel — cause-specific mortality trends for 8 diseases (sex=total, ages 40–44 / 75–79, log scale)](figures/fig_3_1_input_panel_overview.png)
+[^estat]: e-Stat terms of use: https://www.e-stat.go.jp/terms-of-use (English: https://www.e-stat.go.jp/en/terms-of-use). The rates used in this paper are processed by the authors from the published tables.
+
+![](figures/fig_3_1_input_panel_overview.png)
 
 Figure 3.1: Overview of the input panel — the cause-specific mortality rates $m(x,y)$ from 1950 to 2024 (sex = total; left: ages 40–44; right: ages 75–79; log scale). The markers are observation points. They show the uneven spacing: 5-year steps in the first half (1950–2010) and yearly points in the second half (2013–2024). The diseases differ greatly in level (a gap of more than 100 times) and in the shape of the long-term trend. For example, `cerebrovascular` falls steadily, while `cancer` rises and then turns down. (Generation script: `reproduction/backtest/make_paper_figures.py`)
 
 ### 3.1.2 Target disease mapping
 
 From the definitions of insured diseases (`disease_estat_mapping.csv`), we built a panel of the 8 diseases for which Table 5-15 provides age-specific time series.
+
+Table 3.2: Mapping of the 8 target diseases to the cause-of-death codes of Vital Statistics Table 5-15
 
 | disease_id | 5-15 cause code | Label | Remarks |
 |---|---|---|---|
@@ -158,9 +164,11 @@ The structural key point of the framework is this: the future rates are fully re
 
 ### 3.2.3 Hyperparameters
 
-The output of Scale BB depends on quantities estimated from the data, such as the smoothed matrix $\hat{Z}$ and the improvement rates $i(x, y)$. It also depends on settings that the analyst gives from outside, before the estimation. In this paper we call the latter hyperparameters. They are: $\lambda_{\text{age}}, \lambda_{\text{year}}, d$, which set the strength and smoothness of the smoothing (equation 3.1); $L, P$, which set the long-term improvement assumption (equation 3.5); and $a_0, a_1$, which set the fade-out of improvement at high ages (equation 3.4). The table below lists them with their default values.
+The output of Scale BB depends on quantities estimated from the data, such as the smoothed matrix $\hat{Z}$ and the improvement rates $i(x, y)$. It also depends on settings that the analyst gives from outside, before the estimation. In this paper we call the latter hyperparameters. They are: $\lambda_{\text{age}}, \lambda_{\text{year}}, d$, which set the strength and smoothness of the smoothing (equation 3.1); $L, P$, which set the long-term improvement assumption (equation 3.5); and $a_0, a_1$, which set the fade-out of improvement at high ages (equation 3.4). Table 3.3 lists them with their default values.
 
 In this validation we did no disease-specific tuning. We applied the default preset of the experience-rate aggregation process (`config.yaml > scalebb_presets > defaults`) to all diseases. We discuss guidance for disease-specific calibration separately in §9.
+
+Table 3.3: Hyperparameters of the Scale BB extension and their default values
 
 | Symbol | Parameter | Default |
 |---|---|---|
@@ -208,6 +216,10 @@ We merge the linear part into the period effect, following the Holford conventio
 
 Treatment of the COVID-19 period. The pandemic period (2020–2022) is a structural break outside the normal trend. Simple smoothing would distort the estimate of the long-term improvement rate. Our implementation offers 3 modes.
 
+This is not only a modelling convenience. Japan's ESR contemplates the same problem explicitly. The Q&A accompanying the Pillar 1 notice allows actual data arising from a temporary factor to be excluded from the data used for future cash flows where the pattern is judged not to continue, and it names the COVID-19 pandemic as an example — both the increase in claim payments and the effect on hospitalisation and other medical activity. The conditions it attaches are that the temporary nature be reasonably justified, that the effect be quantified, and that the treatment be applied consistently across assumptions. Our `weight_down` mode is a softer form of the same operation, and the quantification in §5.3 — how far the validation error moves according to whether the pandemic is inside the training window — is the kind of evidence those conditions call for.
+
+Table 3.4: Treatment modes for the COVID-19 period in the APC extension
+
 | Mode | Treatment | Recommended use |
 |---|---|---|
 | `weight_down` | Reduce the observation weights of the COVID years: $w \mapsto c_w \cdot w$ ($c_w \in [0,1]$, default 0.3) | Diseases whose long-term improvement continues smoothly (cancer) |
@@ -216,6 +228,29 @@ Treatment of the COVID-19 period. The pandemic period (2020–2022) is a structu
 
 For the projection, we must extrapolate $\gamma(c)$ for new, unobserved cohorts that appear during the projection period. The default is `last_drift`, which extends the last first-order difference (consistent with the Scale BB philosophy). A conservative option is `flat`, which holds the last value fixed.
 
+Hyperparameters of the APC extension. The settings specific to this extension are listed below. They are additional to the Scale BB hyperparameters of §3.2.3, which the APC extension inherits unchanged.
+
+Table 3.5: Hyperparameters specific to the APC cohort-penalty extension
+
+| Symbol / setting | Parameter | Default |
+|---|---|---|
+| $\lambda_{\text{cohort}}$ | Smoothing in the cohort (diagonal) direction (equation 3.8) | *[TO BE COMPLETED — fill in the default value from the implementation]* |
+| — | COVID-19 treatment mode | `weight_down` |
+| $c_w$ | Weight multiplier for COVID years under `weight_down` | 0.3 |
+| — | Cohort extrapolation for unobserved cohorts | `last_drift` |
+| $d$ | Difference order of the cohort penalty | 2 |
+
+<!-- TODO(著者確認): 上表の $\lambda_{cohort}$ 既定値を `_scalebb_core/apc_model.py` から確認して埋めること。他の値も実装と照合すること。 -->
+
+> **Scope note.** The APC extension defined in this section is *not* used in the backtest of §5–§6 or in the financial demonstration of §8. Those results are all produced by the Age-Period framework of §3.2. We present the APC extension here because §7.2 refers to cohort shocks as an implementable scenario type on this framework, and because §10.3 identifies the backtest validation of APC projections as future work. Readers who are only following the validated results may skip to §3.4.
+
+<!-- TODO(著者判断): 査読者は「検証されていない手法がなぜ方法論の章にあるのか」を必ず問う。
+     対応は二択。
+       (a) §3.3 全体を付録に移し、本文には §7.2 のコホートショック実装可能性への言及のみ残す
+           （分量削減にもなるため、Final Paper 締切までの残り期間を考えるとこちらが現実的）
+       (b) APC を含む DA を最低限 1 表だけ §6 に追加する
+     上記の Scope note は、どちらを選ぶにせよ暗黙の前提を明示化するための暫定措置。 -->
+
 ---
 
 ## 3.4 Baseline Methods and Evaluation Metrics
@@ -223,6 +258,8 @@ For the projection, we must extrapolate $\gamma(c)$ for new, unobserved cohorts 
 ### 3.4.1 Three baseline methods
 
 To evaluate the usefulness of Scale BB in relative terms, we compare it with three non-Scale-BB baselines. They either have no explicit concept of an improvement rate, or hold it in a different way. All of them are built for each age $x$ separately. Let $y_c$ be the cutoff year (the end of the training period).
+
+Table 3.6: The three baseline methods
 
 | Method | Forecast rule | Intuition |
 |---|---|---|

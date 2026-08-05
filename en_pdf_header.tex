@@ -1,0 +1,6 @@
+% 英語版ドラフト PDF 用ヘッダ（pandoc --include-in-header で読み込む）。
+% References の金融庁告示の日本語正式名称など、本文中の CJK 文字を組むために
+% luatexja を読み込む。単なるフォントフォールバックと違い、和文の行分割
+% （禁則処理）が効くため、長い日本語題名が行末で折り返される。
+% 和文フォントは TeX Live 既定の原ノ味（HaranoAji）。
+\usepackage{luatexja}

@@ -92,6 +92,29 @@ Center is not responsible for the processed figures.
 
 ---
 
+## 5. Yield curve creation tool (Financial Services Agency)
+
+**Citation (出典表記):**
+
+> 金融庁「経済価値ベースのソルベンシー規制におけるイールド・カーブ作成ツール」（2026 年 3 月末基準日版）
+
+**English citation:**
+
+> Financial Services Agency of Japan, *Yield curve creation tool for the economic
+> value-based solvency regulation*, version for the 31 March 2026 valuation date
+
+| Item | Details |
+| --- | --- |
+| Relevant file | `ScaleBB/Research/data/external/fsa_esr/esr_yield_curve_tool_20260331.xlsx` (not bundled in this package) |
+| Provider | https://www.fsa.go.jp/policy/economic_value-based_solvency/20260323/20260323.html (a permanent page linked from the ESR portal page; the file is replaced at each valuation date) |
+| Version identification | The valuation date stated inside the workbook is 「2026年3月末」 (end of March 2026). The file's last-modified timestamp is 2026-04-06; retrieved locally on 2026-07-28 |
+| Use | Discount-rate curve for the BEL sensitivity demo in §8 (reads the LOT, convergence maturity, UFR, and zero-coupon rates from the JPY row of the parameter sheet and reproduces the Smith-Wilson extrapolation) |
+| Terms of use | Subject to the terms of use of the FSA website (https://www.fsa.go.jp/rules/index.html ). Conforms to the Government of Japan Standard Terms of Use; reproduction, adaptation, and commercial use are permitted with attribution |
+
+**On derived outputs:** `ScaleBB/Research/scripts/bel_demo/build_esr_discount_curve.py` reads the parameters of the tool above and then **independently re-implements** the Smith-Wilson logic to generate `esr_jpy_spot_curve_20260331.csv`. It has not been verified that this implementation is identical to the SW sheet of the tool itself. The FSA bears no responsibility for the results of this re-implementation.
+
+---
+
 ## Disclaimer
 
 All derived data and analysis results in this repository are the work of the authors

@@ -1,12 +1,14 @@
 # §6 Results II — The Directional Accuracy Finding
 
-In this chapter we measure a second evaluation axis — directional accuracy DA (equations 3.11–3.12). The original validation plan (§4) did not measure it. We state the conclusion first. In §5, the point forecast MAPE fell behind most at $y_c = 2014$ (the 10-year-ahead forecast). At this same cutoff, the direction agreement rate for the six main diseases (all causes, cerebrovascular disease, heart disease, diabetes, cancer, kidney failure) reaches 77.7–95.0%. The same model lost every point forecast comparison. Yet it captured the sign of the trend (improvement or worsening) almost correctly. This gap is the central finding of this paper. All numbers below match the regenerated results of the reproduction package `reproduction/backtest/output/directional/` (sex = total).
+In this chapter we measure a second evaluation axis — directional accuracy DA (equations 3.11–3.12). The original validation plan (§4) did not measure it. We state the conclusion first. At $y_c = 2014$, the cutoff where the point forecast MAPE fell behind most (§5), the direction agreement rate for the six main diseases (all causes, cerebrovascular disease, heart disease, diabetes, cancer, kidney failure) reaches 77.7–95.0%. The model that lost every point forecast comparison captured the sign of the trend — improvement or worsening — almost correctly. This gap is the central finding of this paper. All numbers below match the regenerated results of the reproduction package `reproduction/backtest/output/directional/` (sex = total).
 
 ---
 
 ## 6.1 Directional accuracy at $y_c = 2014$ — 77.7–95.0% for the six main diseases
 
 We show the directional accuracy by disease for $y_c = 2014$ (forecasting the 10 years 2015–2024). This is the cutoff where the MAPE gap was largest. DA is evaluated only on cells where an actual change occurred (equation 3.12). Therefore we also report the number of valid cells $n$ (§4.3).
+
+Table 6.1: Directional accuracy of Scale BB-D by disease at $y_c = 2014$ (sex = total)
 
 | Disease | $n$ (valid cells) | DA [%] |
 |---|---:|---:|
@@ -19,13 +21,15 @@ We show the directional accuracy by disease for $y_c = 2014$ (forecasting the 10
 | `liver` | 118 | 27.97 |
 | `hypertensive` | 110 | 23.64 |
 
-When we place these results next to §5.1, the size of the gap stands out. For example, `cerebrovascular` had a MAPE of 47.14%. That was the third worst of the 8 diseases in point forecasts. Yet its direction agreement rate reaches 91.04%. `total` misses the 10-year-ahead level by 26% on average. Still, it gets the direction of change right in 133 of 140 cells. In other words, the error of Scale BB-D is not an error of "wrong direction". It is an error of "going too far in the right direction" (over-extrapolating improvement). This is consistent with the dominance of negative bias observed in §5.1.
+When we place these results next to §5.1, the size of the gap stands out. For example, `cerebrovascular` had a MAPE of 47.14%. That was the third worst of the 8 diseases in point forecasts. Yet its direction agreement rate reaches 91.04%. `total` misses the level by 26% on average over the 10-year window. Still, it gets the direction of change right in 133 of 140 valid cells. In other words, the error of Scale BB-D is not an error of "wrong direction". It is an error of "going too far in the right direction" (over-extrapolating improvement). This is consistent with the dominance of negative bias observed in §5.1.
 
 In contrast, two diseases miss the direction itself: `liver` (27.97%) and `hypertensive` (23.64%). Their mortality rates turned upward from the mid-2010s. However, the default setting ($L = +1\%$, continued improvement) kept producing projections in the improving direction. We treat this in detail in §6.5.
 
 ## 6.2 Across the 3 cutoffs — does the model capture direction regardless of the training period?
 
-The table and Figure 6.1 show the Scale BB-D directional accuracy when we vary the training cutoff in three ways.
+Table 6.2 and Figure 6.1 show the Scale BB-D directional accuracy when we vary the training cutoff in three ways.
+
+Table 6.2: Directional accuracy [%] of Scale BB-D by disease and training cutoff (sex = total)
 
 | Disease | $y_c{=}2014$ | $y_c{=}2021$ | $y_c{=}2022$ |
 |---|---:|---:|---:|
@@ -38,7 +42,7 @@ The table and Figure 6.1 show the Scale BB-D directional accuracy when we vary t
 | `liver` | 27.97 | 45.95 | 52.00 |
 | `hypertensive` | 23.64 | 68.97 | 85.00 |
 
-![Bar chart of Scale BB-D directional accuracy by training cutoff and by disease](figures/fig_6_1_scalebb_directional_per_cutoff.png)
+![](figures/fig_6_1_scalebb_directional_per_cutoff.png)
 
 Figure 6.1: Scale BB-D directional accuracy by training cutoff (sex = total). The dashed line is the chance level (a coin flip, 50%). At $y_c = 2014$ (red), the six diseases with continued improvement are far above the chance level, while `liver` / `hypertensive` are far below it. At $y_c = 2021/2022$ (orange, green) the pattern reverses, and `liver` / `hypertensive` recover (§6.5). (Reproduction: `reproduction/backtest/output/directional/figures/scalebb_directional_per_cutoff.png`)
 
@@ -47,6 +51,8 @@ Two points need care when reading Figure 6.1. First, $y_c = 2014$ is statistical
 ## 6.3 Baseline comparison — few methods carry direction information
 
 We compare the DA of the four methods under the same definition. Over 24 comparisons (8 diseases × 3 cutoffs, sex = total), the win-loss record of Scale BB-D is as follows.
+
+Table 6.3: Directional accuracy — win / tie / loss record of Scale BB-D against each baseline (24 comparisons, sex = total)
 
 | Compared against | Scale BB-D wins | Ties | Losses |
 |---|---:|---:|---:|
@@ -58,7 +64,7 @@ We compare the DA of the four methods under the same definition. Over 24 compari
 
 The only meaningful rival is `loglin_trend`. It holds explicit direction information through its OLS slope. Scale BB-D wins on net, with 12 wins, 5 ties, and 7 losses. But the details have structure. At $y_c = 2014$, the two methods are exactly equal for `cerebrovascular` (91.04%) and `heart_disease` (90.51%). For `total` they are nearly equal: 95.00% vs 94.29%. For diseases with a clear improvement trend, the long-term structural model and log-linear extrapolation reach the same sign. The losses of Scale BB-D concentrate mainly in `cancer` (it falls behind at all 3 cutoffs; 79.71% vs 93.48% at $y_c{=}2014$) and in $y_c = 2022$, where the validation period is only 2 years. In contrast, at $y_c = 2021$ Scale BB-D is far ahead for `heart_disease` (50.00% vs 26.19%) and `total` (42.86% vs 16.67%). The 15-year OLS includes the COVID period, so the level shift pulls it off course and it misses the direction. Even in that phase, Scale BB-D sets the direction from decades of structure, and it degrades more gently (Figure 6.2).
 
-![Direct comparison of directional accuracy between Scale BB-D and loglin_trend (3 cutoffs side by side)](figures/fig_6_2_scalebb_vs_loglin_directional.png)
+![](figures/fig_6_2_scalebb_vs_loglin_directional.png)
 
 Figure 6.2: Direct comparison of the directional accuracy of Scale BB-D (green) and `loglin_trend` (red) (sex = total, 3 cutoffs side by side, dashed line at 50%). On the left ($y_c{=}2014$), Scale BB-D is equal or better except for `cancer`. In the middle ($y_c{=}2021$), Scale BB-D leads for `heart_disease` / `total` / `cerebrovascular`. On the right ($y_c{=}2022$), more cells favor `loglin_trend` amid the noise of the short validation period. (Reproduction: `reproduction/backtest/output/directional/figures/scalebb_vs_loglin_directional.png`)
 
@@ -70,9 +76,9 @@ What it gains in exchange is stability of direction. The sign of the improvement
 
 ## 6.5 Handling direction-reversal diseases — the scope and limits of calibration
 
-The direction misses of `liver` / `hypertensive` (DA 23.6–28.0%) are cases where the default setting of Scale BB-D, $L = +1\%$ (continued improvement), conflicted with the facts. These mortality rates turned upward from the mid-2010s. For practical use, the key question is whether this direction miss can be corrected. Here we separate and test two correction paths: (i) the calibration path — reset $L$ and $P$ per disease; (ii) the data path — include the recent post-reversal data in training. Table 6.1 and Figure 6.3 show the results.
+The direction misses of `liver` / `hypertensive` (DA 23.6–28.0%) are cases where the default setting of Scale BB-D, $L = +1\%$ (continued improvement), conflicted with the facts. These mortality rates turned upward from the mid-2010s. For practical use, the key question is whether this direction miss can be corrected. Here we separate and test two correction paths: (i) the calibration path — reset $L$ and $P$ per disease; (ii) the data path — include the recent post-reversal data in training. Table 6.4 and Figure 6.3 show the results.
 
-Table 6.1: Recalibration experiment for direction-reversal diseases (sex = total, DA [%])
+Table 6.4: Recalibration experiment for direction-reversal diseases (sex = total, DA [%])
 
 | Setting | Path | `liver` | `hypertensive` |
 |---|---|---:|---:|
@@ -82,7 +88,7 @@ Table 6.1: Recalibration experiment for direction-reversal diseases (sex = total
 | $y_c{=}2021$, default | Data | 45.95 ($n{=}37$) | 68.97 ($n{=}29$) |
 | $y_c{=}2022$, default | Data | 52.00 ($n{=}25$) | 85.00 ($n{=}20$) |
 
-![Direction agreement rate for direction-reversal diseases (liver / hypertensive) — comparison of the calibration path and the data path](figures/fig_6_3_calibration_recovery.png)
+![](figures/fig_6_3_calibration_recovery.png)
 
 Figure 6.3: Recovery of the direction agreement rate for direction-reversal diseases — the calibration path (reds: keep $y_c = 2014$ and reset $L$ and $P$) and the data path (orange, green: include post-reversal data in training). The dashed line is 50%. (Generation script: `reproduction/backtest/make_calibration_recovery_figure.py`)
 
@@ -100,4 +106,4 @@ Finally, we make clear what the limit of this verifiability means. The long-term
 
 ---
 
-*The gap between "point forecasts lose everywhere" in §5 and "direction is right 77.7–95.0% of the time" in this chapter shows where the value of Scale BB-D lies. It is not in predicting single-year levels. It lies in the explicit output of the improvement rate $i^*(x, y)$ whose direction has been validated. In the next chapter, §7, we discuss how this property translates one-to-one into the scenario generation structure (§2.3) required by economic-value-based valuation (ICS / IFRS 17).*
+*§7 turns this property — an explicit improvement rate $i^*(x, y)$ whose direction has been validated — into the scenario structure that economic-value-based valuation requires (§2.3).*
