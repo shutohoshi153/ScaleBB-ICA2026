@@ -8,6 +8,8 @@ This directory is a self-contained package for **standalone reproduction and ver
 
 It has no dependency on any other directory in the repository (input data and the algorithm core are all bundled).
 
+For a detailed explanation of what each script does (inputs, processing, outputs), see [SCRIPTS.en.md](SCRIPTS.en.md).
+
 > One of the two packages under `Paper_ICA2026/reproduction/`. It shares the algorithm core and input mortality data
 > with its sister package `../generational/` (APC generational assumed-rate generation, §3.3; details in `../generational/README.md`).
 > For the overall division of roles and consistency, see `../README.md`.
