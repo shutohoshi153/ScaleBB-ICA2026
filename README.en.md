@@ -46,6 +46,7 @@ This repository is maintained bilingually in Japanese and English.
 | `reproduction/` | **Reproduction packages** for §3–§5 (division of roles explained in `reproduction/README.md`) | — |
 | `reproduction/backtest/` | Point-forecast accuracy + directional accuracy (§3.1/3.2/3.4, §5, §6). Self-contained; runnable standalone | Verified working (2026-07-22) |
 | `reproduction/generational/` | Generation of APC generational assumed-rate tables (the forward-running pipeline for the APC extension of §3.3; details in `reproduction/generational/README.md`). KDB CLI | Trace-verified (2026-07-15) |
+| `fms_booster/` | FMS Booster re-run package for the §8 BEL sensitivity demo (Tier 1 cases A/B/C; supports §9.2 argument 4 and §10.4; details in `fms_booster/README.en.md`; the vendor-supplied model source is not bundled) | Inputs generated and verified; awaiting the FMS run (2026-08-05) |
 
 ## Compliance with the official ICA 2026 guidance (as of 2026-08-05)
 

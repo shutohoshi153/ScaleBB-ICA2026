@@ -44,6 +44,7 @@ International Congress of Actuaries (ICA) 提出論文の**公開用ドラフト
 | `reproduction/` | §3–§5 の**再現パッケージ群**（分担説明は `reproduction/README.md`） | — |
 | `reproduction/backtest/` | 点予測精度 + 方向性的中率（§3.1/3.2/3.4・§5・§6）。自己完結・単体実行可 | 動作確認済み（2026-07-22） |
 | `reproduction/generational/` | APC世代別 予定率テーブル生成（§3.3 の APC 拡張の前向き実行系。詳細は `reproduction/generational/README.md`）。KDB CLI | 追跡検証済み（2026-07-15） |
+| `fms_booster/` | §8 BEL 感応度デモの FMS Booster 再実行パッケージ（Tier 1 ケース A/B/C。§9.2 論拠 4・§10.4 対応。詳細は `fms_booster/README.md`。ベンダー提供のモデルソースは非同梱） | 入力生成・検証済み、FMS 実行待ち（2026-08-05） |
 
 ## ICA2026 公式ガイダンスへの適合状況（2026-08-05 時点）
 
