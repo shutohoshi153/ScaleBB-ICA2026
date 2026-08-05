@@ -4,7 +4,7 @@
 
 *English translation of [SCRIPTS.md](SCRIPTS.md) (as of 2026-08-06). If the versions disagree, the Japanese version is authoritative.*
 
-This document explains the **processing performed** by each executable script bundled in `reproduction/backtest/` (1 shell script + 8 Python scripts), from the viewpoint of inputs, processing, and outputs. For the package's overall role, quickstart, and expected reference numbers, see [README.en.md](README.en.md).
+This document explains the **processing performed** by each executable script bundled in `reproduction/backtest/` (1 shell script + 8 Python scripts), from the viewpoint of inputs, processing, and outputs. For the package's overall role, quickstart, and expected reference numbers, see [README.en.md](README.en.md); for the detailed per-file design documents (down to function specifications and output column definitions), see [docs/](docs/README.en.md).
 
 ## Overall processing flow
 

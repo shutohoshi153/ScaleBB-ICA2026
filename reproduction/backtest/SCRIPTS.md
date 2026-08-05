@@ -2,7 +2,7 @@
 
 # SCRIPTS — backtest 各スクリプトの処理解説
 
-本書は `reproduction/backtest/` に同梱される実行スクリプト（シェル 1 本 + Python 8 本）の**処理内容**を、入力・処理・出力の観点から個別に解説する。パッケージ全体の位置づけ・クイックスタート・期待数値は [README.md](README.md) を参照。
+本書は `reproduction/backtest/` に同梱される実行スクリプト（シェル 1 本 + Python 8 本）の**処理内容**を、入力・処理・出力の観点から個別に解説する。パッケージ全体の位置づけ・クイックスタート・期待数値は [README.md](README.md) を、Python ファイルごとの詳細な設計書（関数仕様・出力列定義まで）は [docs/](docs/README.md) を参照。
 
 ## 全体の処理フロー
 
